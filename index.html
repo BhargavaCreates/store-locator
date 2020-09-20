@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+  <title>Google Maps Multiple Markers</title> 
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyCGSgo7s4aeL2CBUaJhkjvn_H-c_khEvhw&sensor=false" 
+          type="text/javascript"></script>
+  <style>
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 550px;
+        width: 100%;
+      }
+      h3 {
+        text-align: center;
+      }
+    </style>
+</head> 
+<body>
+  <div id="map"></div>
+  <div id="button"></div>
+
+  <script type="text/javascript">
+
+    var markers = [
+          {
+            coords: { lat: 39.30933, lng: -84.4204 },
+            content: "<p>BR Lighting & Controls</p>",
+          },
+          {
+            coords: { lat: 40.9361239, lng: -73.8023483 },
+            content: "<p>New Gen. Lighting & Energy</p>",
+          },
+          {
+            coords: { lat: 40.5394294, lng: -80.0389002 },
+            content: "<p>Gray Electrical Sales</p>",
+          },
+          {
+            coords: { lat: 37.6440681, lng: -77.4625868 },
+            content: "<p>SS Sales</p>",
+          },
+          {
+            coords: { lat: 28.6979039, lng: -81.2642165 },
+            content: "<p>ReveLume</p>",
+          },
+          {
+            coords: { lat: 35.1796696, lng: -89.8403922 },
+            content: "<p> Clear Advantage Lighting</p>",
+          },
+          {
+            coords: { lat: 42.4964725, lng: -83.2248906 },
+            content: "<p>Baylume LED</p>",
+          },
+          {
+            coords: { lat: 43.0434479, lng: -88.1973731 },
+            content: "<p>Spectrum Lighting & Controls</p>",
+          },
+          {
+            coords: { lat: 44.784424, lng: -93.4580607 },
+            content: "<p> Luma Sales</p>",
+          },
+          {
+            coords: { lat: 41.5984014, lng: -94.9786789 },
+            content: "<p>NRG Sales</p>",
+          },
+          {
+            coords: { lat: 36.1400229, lng: -95.9920357 },
+            content: "<p> Electra Sales / Next Gen. Lighting</p>",
+          },
+          {
+            coords: { lat: 32.7917299, lng: -96.8137594 },
+            content: "<p> AMA Lighting & Design</p>",
+          },
+          {
+            coords: { lat: 33.044103, lng: -112.0217639 },
+            content: "<p>Stellar Sales</p>",
+          },
+          {
+            coords: { lat: 39.599178, lng: -104.785779 },
+            content: "<p>Lighting Vision Incorporated</p>",
+          },
+          {
+            coords: { lat: 47.7647095, lng: -122.153077 },
+            content: "<p>Reeves Company</p>",
+          },
+          {
+            coords: { lat: 34.128008, lng: -84.2205448 },
+            content: "<p>Richard Brown & Associates</p>",
+          },
+          {
+            coords: { lat: 25.808165, lng: -80.2823525 },
+            content: "<p>Technical Resources International Corp</p>",
+          },
+          {
+            coords: { lat: 45.6571603, lng: -73.5283824 },
+            content: `<p>Lumitech</p>`,
+          },
+          {
+            coords: { lat: 53.3635879, lng: -113.428619 },
+            content: "<p>Go To Agencies</p>",
+          },
+        ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4.3,
+      center: markers[5].coords,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var marker, i;
+
+    var infoWindow = new google.maps.InfoWindow();
+
+    for(i = 0; i < markers.length; i++){
+      marker = new google.maps.Marker({
+        position: markers[i].coords,
+        map: map,
+        icon: "marker.png"
+      });
+
+      var btn = document.createElement("BUTTON");
+      btn.innerHTML = markers[i].content;
+      document.getElementById('button').appendChild(btn); 
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infoWindow.setContent(markers[i].content);
+          infoWindow.open(map, marker);
+        }
+      })(marker, i));
+
+      btn.addEventListener('click',((marker,i) => { 
+            return function () {
+            infoWindow.setContent(markers[i].content);
+            infoWindow.open(map,marker);
+            }
+        })(marker,i));
+    }
+  </script>
+</body>
+</html>
